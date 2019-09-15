@@ -4,4 +4,12 @@
 
 .BuildControls .center-card {
     margin: 0 auto;
+    width: 400px;
+}
+
+.footer {
+    position: fixed;
+    margin-bottom: 30px;
+    bottom: 0;
+    width: 100%;
 }

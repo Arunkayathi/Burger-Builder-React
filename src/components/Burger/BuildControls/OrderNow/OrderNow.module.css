@@ -1,0 +1,10 @@
+.checkout-btns {
+
+    display: flex;
+    margin: 10px 15px 20px 0;
+    justify-content: flex-end;
+}
+
+.checkout-btns button:first-child {
+    margin-right: 10px;
+}

@@ -6,8 +6,8 @@ import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 const INGREDIENT_PRICES = {
   salad: 0.5,
   meat: 1.5,
-  bacon: 1,
-  cheese: 0.5
+  bacon: 1.3,
+  cheese: 0.4
 };
 class BurgerBuilder extends Component {
   state = {
@@ -17,7 +17,8 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    total: 0.0
+    total: 0.0,
+    showModal: false
   };
   addIngredientHandler = type => {
     const oldCount = this.state.ingredients[type];
@@ -36,15 +37,22 @@ class BurgerBuilder extends Component {
     this.setState({ total: updatedTotal, ingredients: updatedIngredients });
     this.setState({ ingredients: updatedIngredients });
   };
+
+  handleModalHandler = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
   render() {
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients}></Burger>
+
         <BuildControls
           total={this.state.total}
+          showModal={this.state.showModal}
           ingredients={this.state.ingredients}
           onAddIngredient={this.addIngredientHandler}
           onRemoveIngredient={this.removeIngredientHandler}
+          onModalOpen={this.handleModalHandler}
         ></BuildControls>
       </Aux>
     );
