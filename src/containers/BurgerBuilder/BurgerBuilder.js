@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import axios from "../../axios/axios-orders";
+import WithErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -18,7 +20,8 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     total: 0.0,
-    showModal: false
+    showModal: false,
+    isLoading: false
   };
   addIngredientHandler = type => {
     const oldCount = this.state.ingredients[type];
@@ -41,6 +44,26 @@ class BurgerBuilder extends Component {
   handleModalHandler = () => {
     this.setState({ showModal: !this.state.showModal });
   };
+  burgerPurchaseHandler = async () => {
+    this.setState({ isLoading: true });
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.total.toFixed(2),
+      customer: {
+        name: "Arun",
+        address: {
+          street: "test street1",
+          zipCode: "45259",
+          country: "USA"
+        },
+        email: "arun@gmail.com"
+      },
+      deliveryMethod: "fastest"
+    };
+    const data = await axios.post("/orde", order);
+
+    this.setState({ isLoading: false, showModal: false });
+  };
   render() {
     return (
       <Aux>
@@ -49,14 +72,16 @@ class BurgerBuilder extends Component {
         <BuildControls
           total={this.state.total}
           showModal={this.state.showModal}
+          isLoading={this.state.isLoading}
           ingredients={this.state.ingredients}
           onAddIngredient={this.addIngredientHandler}
           onRemoveIngredient={this.removeIngredientHandler}
           onModalOpen={this.handleModalHandler}
+          onBurgerPurchaseHandler={this.burgerPurchaseHandler}
         ></BuildControls>
       </Aux>
     );
   }
 }
 
-export default BurgerBuilder;
+export default WithErrorHandler(BurgerBuilder, axios);

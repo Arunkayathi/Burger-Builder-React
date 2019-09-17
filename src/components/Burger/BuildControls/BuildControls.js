@@ -55,6 +55,8 @@ const BuildControls = props => (
             ingredients={props.ingredients}
             showModal={props.showModal}
             modalOpen={props.onModalOpen}
+            isLoading={props.isLoading}
+            onBurgerPurchase={props.onBurgerPurchaseHandler}
           ></OrderNow>
           <Button
             fluid

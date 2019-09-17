@@ -8,3 +8,7 @@
 .checkout-btns button:first-child {
     margin-right: 10px;
 }
+
+.custom-modal {
+    height: 350px !important;
+}
