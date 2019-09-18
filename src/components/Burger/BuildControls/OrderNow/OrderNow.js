@@ -14,7 +14,6 @@ export class OrderNow extends Component {
   }
 
   render() {
-    console.log(this.props.isLoading);
     return (
       <React.Fragment>
         {!this.props.isLoading && (
@@ -79,7 +78,7 @@ export class OrderNow extends Component {
             onClose={this.props.modalOpen}
             style={{ height: "350px" }}
           >
-            <Spinner>Checking out please wait...</Spinner>
+            <Spinner isInverted={true}>Checking out please wait...</Spinner>
           </Modal>
         )}
       </React.Fragment>

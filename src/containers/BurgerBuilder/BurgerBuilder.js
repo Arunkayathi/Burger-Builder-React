@@ -4,6 +4,7 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import axios from "../../axios/axios-orders";
 import WithErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import Spinner from "../../components/Spinner/Spinner";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -13,16 +14,22 @@ const INGREDIENT_PRICES = {
 };
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0
-    },
+    ingredients: null,
     total: 0.0,
     showModal: false,
     isLoading: false
   };
+
+  constructor(props) {
+    super(props);
+    axios
+      .get("/ingredients.json")
+      .then(({ data: ingredients }) => this.setState({ ingredients }))
+      .catch(error => {
+        console.log("error: ", error);
+      });
+  }
+
   addIngredientHandler = type => {
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount + 1;
@@ -60,27 +67,35 @@ class BurgerBuilder extends Component {
       },
       deliveryMethod: "fastest"
     };
-    const data = await axios.post("/orde", order);
+    const data = await axios.post("/orders.json", order);
 
     this.setState({ isLoading: false, showModal: false });
   };
-  render() {
-    return (
-      <Aux>
-        <Burger ingredients={this.state.ingredients}></Burger>
 
-        <BuildControls
-          total={this.state.total}
-          showModal={this.state.showModal}
-          isLoading={this.state.isLoading}
-          ingredients={this.state.ingredients}
-          onAddIngredient={this.addIngredientHandler}
-          onRemoveIngredient={this.removeIngredientHandler}
-          onModalOpen={this.handleModalHandler}
-          onBurgerPurchaseHandler={this.burgerPurchaseHandler}
-        ></BuildControls>
-      </Aux>
+  render() {
+    let burger = (
+      <Spinner isInverted={false}>Loading Ingredients please wait...</Spinner>
     );
+    if (this.state.ingredients) {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients}></Burger>
+
+          <BuildControls
+            total={this.state.total}
+            showModal={this.state.showModal}
+            isLoading={this.state.isLoading}
+            ingredients={this.state.ingredients}
+            onAddIngredient={this.addIngredientHandler}
+            onRemoveIngredient={this.removeIngredientHandler}
+            onModalOpen={this.handleModalHandler}
+            onBurgerPurchaseHandler={this.burgerPurchaseHandler}
+          ></BuildControls>
+        </Aux>
+      );
+    }
+
+    return <Aux>{burger}</Aux>;
   }
 }
 
