@@ -22,7 +22,6 @@ export class OrderNow extends Component {
             closeOnDimmerClick={false}
             size="tiny"
             onClose={this.props.modalOpen}
-            style={{ height: "350px" }}
           >
             <div></div>
             <Modal.Header>

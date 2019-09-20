@@ -1,0 +1,12 @@
+.checkout-accordion {
+    margin: 0 auto;
+}
+
+.accordion-btns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.accordion-btns button:first-child {
+    margin-right: 20px;
+}

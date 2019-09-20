@@ -20,6 +20,10 @@ class BurgerBuilder extends Component {
     isLoading: false
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   constructor(props) {
     super(props);
     axios
@@ -51,25 +55,21 @@ class BurgerBuilder extends Component {
   handleModalHandler = () => {
     this.setState({ showModal: !this.state.showModal });
   };
-  burgerPurchaseHandler = async () => {
-    this.setState({ isLoading: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.total.toFixed(2),
-      customer: {
-        name: "Arun",
-        address: {
-          street: "test street1",
-          zipCode: "45259",
-          country: "USA"
-        },
-        email: "arun@gmail.com"
-      },
-      deliveryMethod: "fastest"
-    };
-    const data = await axios.post("/orders.json", order);
-
-    this.setState({ isLoading: false, showModal: false });
+  burgerPurchaseHandler = () => {
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    queryParams.push("price=" + this.state.total.toFixed(2));
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: queryString
+    });
   };
 
   render() {
