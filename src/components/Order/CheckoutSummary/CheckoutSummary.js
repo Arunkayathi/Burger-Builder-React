@@ -11,7 +11,7 @@ const CheckoutSummary = props => {
       <Accordion.Title
         active={props.activeIndex === 0}
         index={0}
-        onClick={props.handleClick}
+        onClick={() => props.handleClick(0)}
       >
         <Icon name="dropdown" />
         Preview your Burger
@@ -22,7 +22,7 @@ const CheckoutSummary = props => {
           <Button color="red" inverted onClick={props.checkoutCancelled}>
             <Icon name="remove" /> Cancel
           </Button>
-          <Button color="green" inverted onClick={props.handleClick}>
+          <Button color="green" inverted onClick={() => props.handleClick(1)}>
             <Icon name="checkmark" /> continue
           </Button>
         </div>
@@ -31,7 +31,7 @@ const CheckoutSummary = props => {
       <Accordion.Title
         active={props.activeIndex === 1}
         index={1}
-        onClick={props.handleClick}
+        onClick={() => props.handleClick(1)}
       >
         <Icon name="dropdown" />
         Shipping Address
@@ -39,10 +39,10 @@ const CheckoutSummary = props => {
       <Accordion.Content active={props.activeIndex === 1}>
         <ContactData></ContactData>
         <div className={styles["accordion-btns"]}>
-          <Button color="red" inverted>
-            <Icon name="arrow left" /> Back
+          <Button color="red" inverted onClick={() => props.handleClick(0)}>
+            <Icon name="arrow left" /> previous
           </Button>
-          <Button color="green" inverted>
+          <Button color="green" inverted onClick={() => props.handleClick(2)}>
             <Icon name="checkmark" /> continue
           </Button>
         </div>
@@ -51,7 +51,7 @@ const CheckoutSummary = props => {
       <Accordion.Title
         active={props.activeIndex === 2}
         index={2}
-        onClick={props.handleClick}
+        onClick={() => props.handleClick(2)}
       >
         <Icon name="dropdown" />
         Payment Information

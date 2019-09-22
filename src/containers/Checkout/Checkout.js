@@ -12,7 +12,6 @@ class Checkout extends Component {
 
   componentDidMount() {
     const query = new URLSearchParams(this.props.location.search);
-    console.log("query: ", query.get("salad"));
     const ingredients = {
       salad: +query.get("salad"),
       meat: +query.get("meat"),
@@ -23,8 +22,8 @@ class Checkout extends Component {
     this.setState({ ingredients });
   }
 
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps;
+  handleClick = (index = 0) => {
+    console.log("index: ", index);
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
 
