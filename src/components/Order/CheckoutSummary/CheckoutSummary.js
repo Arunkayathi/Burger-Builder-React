@@ -2,6 +2,7 @@ import React from "react";
 import Burger from "../../Burger/Burger";
 import styles from "./CheckoutSummary.module.css";
 import { Accordion, Icon, Button } from "semantic-ui-react";
+import { connect } from "react-redux";
 import ContactData from "../../../containers/Checkout/ContactData/ContactData";
 import PaymentInfo from "../../../containers/Checkout/PaymentInfo/PaymentInfo";
 
@@ -42,7 +43,7 @@ const CheckoutSummary = props => {
           <Button color="red" inverted onClick={() => props.handleClick(0)}>
             <Icon name="arrow left" /> previous
           </Button>
-          <Button color="green" inverted onClick={() => props.handleClick(2)}>
+          <Button color="green" inverted onClick={props.validateForm}>
             <Icon name="checkmark" /> continue
           </Button>
         </div>
@@ -66,4 +67,11 @@ const CheckoutSummary = props => {
   );
 };
 
-export default CheckoutSummary;
+const mapStateToProps = (state, ownProps) => ({
+  ingredients: state.ingredients
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(CheckoutSummary);

@@ -6,13 +6,13 @@ import styles from "./NavigationBar.module.css";
 const NavigationBar = () => {
   return (
     <Menu inverted className={styles.NavBar}>
-      <Menu.Item header as={Link} to="/" exact>
+      <Menu.Item header as={Link} to="/">
         <img
           alt="logo"
           src={require("../../../assets/images/burger-logo.png")}
         ></img>
       </Menu.Item>
-      <Menu.Item as={NavLink} to="/" exact name="Home" />
+      <Menu.Item as={NavLink} to="/" exact={true} name="Home" />
       <Menu.Item as={NavLink} to="/orders" name="Orders" />
       <Menu.Item position="right" name="Login" />
     </Menu>

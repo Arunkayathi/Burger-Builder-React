@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Header, Divider, List, Icon, Modal } from "semantic-ui-react";
+import { connect } from "react-redux";
 
 import styles from "./OrderNow.module.css";
 
@@ -45,7 +46,8 @@ export class OrderNow extends Component {
                   })}
                 </List>
                 <p>
-                  Total Price: <strong>{this.props.total.toFixed(2)} $</strong>
+                  Total Price:{" "}
+                  <strong>{this.props.totalPrice.toFixed(2)} $</strong>
                 </p>
               </Modal.Description>
             </Modal.Content>
@@ -85,4 +87,9 @@ export class OrderNow extends Component {
   }
 }
 
-export default OrderNow;
+const mapStateToProps = (state, ownProps) => ({
+  ingredients: state.ingredients,
+  totalPrice: state.totalPrice
+});
+
+export default connect(mapStateToProps)(OrderNow);

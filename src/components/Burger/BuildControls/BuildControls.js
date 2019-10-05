@@ -8,6 +8,7 @@ import {
   Container
 } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import styles from "./BuildControls.module.css";
 
@@ -31,7 +32,9 @@ const BuildControls = props => (
     <Container className={styles.BuildControls}>
       <Card className={styles["center-card"]}>
         <Card.Content extra>
-          <Card.Header>Total Price: {props.total.toFixed(2)} $</Card.Header>
+          <Card.Header>
+            Total Price: {props.totalPrice.toFixed(2)} $
+          </Card.Header>
         </Card.Content>
         <Card.Content>
           <Card.Description>
@@ -51,8 +54,6 @@ const BuildControls = props => (
         </Card.Content>
         <Card.Content extra>
           <OrderNow
-            total={props.total}
-            ingredients={props.ingredients}
             showModal={props.showModal}
             modalOpen={props.onModalOpen}
             isLoading={props.isLoading}
@@ -62,7 +63,7 @@ const BuildControls = props => (
             fluid
             color="green"
             onClick={props.onModalOpen}
-            disabled={props.total === 0}
+            disabled={props.totalPrice === 0.0}
           >
             Order now
           </Button>
@@ -71,9 +72,15 @@ const BuildControls = props => (
     </Container>
   </div>
 );
+
+const mapStateToProps = (state, ownProps) => ({
+  ingredients: state.ingredients,
+  totalPrice: state.totalPrice
+});
+
 BuildControls.propTypes = {
   ingredients: PropTypes.object.isRequired,
-  total: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
   onAddIngredient: PropTypes.func.isRequired
 };
-export default BuildControls;
+export default connect(mapStateToProps)(BuildControls);
