@@ -88,8 +88,8 @@ export class OrderNow extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  ingredients: state.ingredients,
-  totalPrice: state.totalPrice
+  ingredients: state.ingredientsState.ingredients,
+  totalPrice: state.ingredientsState.totalPrice
 });
 
 export default connect(mapStateToProps)(OrderNow);

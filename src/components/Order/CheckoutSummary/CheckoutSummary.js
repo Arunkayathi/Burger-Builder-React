@@ -68,7 +68,7 @@ const CheckoutSummary = props => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  ingredients: state.ingredients
+  ingredients: state.ingredientsState.ingredients
 });
 
 export default connect(

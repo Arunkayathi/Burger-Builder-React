@@ -74,8 +74,8 @@ const BuildControls = props => (
 );
 
 const mapStateToProps = (state, ownProps) => ({
-  ingredients: state.ingredients,
-  totalPrice: state.totalPrice
+  ingredients: state.ingredientsState.ingredients,
+  totalPrice: state.ingredientsState.totalPrice
 });
 
 BuildControls.propTypes = {
