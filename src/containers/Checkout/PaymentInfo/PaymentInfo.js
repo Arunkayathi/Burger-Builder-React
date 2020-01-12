@@ -8,6 +8,9 @@ import {
   formatFormData
 } from "../../../utils/payment";
 
+import yup from "yup";
+import { withFormik } from "formik";
+
 class PaymentInfo extends Component {
   state = {
     number: "",

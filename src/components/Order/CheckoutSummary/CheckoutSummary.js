@@ -7,6 +7,7 @@ import ContactData from "../../../containers/Checkout/ContactData/ContactData";
 import PaymentInfo from "../../../containers/Checkout/PaymentInfo/PaymentInfo";
 
 const CheckoutSummary = props => {
+  let formReference = null;
   return (
     <Accordion styled className={styles["checkout-accordion"]}>
       <Accordion.Title
@@ -38,12 +39,15 @@ const CheckoutSummary = props => {
         Shipping Address
       </Accordion.Title>
       <Accordion.Content active={props.activeIndex === 1}>
-        <ContactData></ContactData>
+        <ContactData
+          onSubmit={form => props.onContactFormSubmit(form)}
+          ref={form => (formReference = form)}
+        ></ContactData>
         <div className={styles["accordion-btns"]}>
           <Button color="red" inverted onClick={() => props.handleClick(0)}>
             <Icon name="arrow left" /> previous
           </Button>
-          <Button color="green" inverted onClick={props.validateForm}>
+          <Button color="green" inverted onClick={() => formReference}>
             <Icon name="checkmark" /> continue
           </Button>
         </div>

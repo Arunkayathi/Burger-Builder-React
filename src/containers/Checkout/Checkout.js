@@ -33,6 +33,10 @@ class Checkout extends Component {
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
   };
+  onContactFormSubmit = form => {
+    console.log("form: ", form);
+    this.handleClick(2);
+  };
   orderClickedHandler = async () => {
     this.setState({ isLoading: true });
     const order = {
@@ -61,6 +65,7 @@ class Checkout extends Component {
           ingredients={this.state.ingredients}
           checkoutCancelled={this.checkoutCancelledHandler}
           orderClicked={this.orderClickedHandler}
+          onContactFormSubmit={this.onContactFormSubmit}
         ></CheckoutSummary>
       </div>
     );
